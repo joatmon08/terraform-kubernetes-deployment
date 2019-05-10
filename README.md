@@ -17,7 +17,21 @@ statefulset. Run the commands below to deploy both to a Kubernetes cluster.
 - `terraform plan`
 - `terraform apply`
 
-## Issues
+## Not on Feature List
+
+Below are features that are currently not covered by the provider.
+
+- `beta` API not available. As a result, `PodDisruptionBudget` for the zookeeper
+  demo is omitted.
+
+- No `podAffinity` (GA) or `podAntiAffinity` (Kubernetes 1.14 beta).
+
+## Questions
+
+- Creating `default` namespace to `kubernetes_namespace` has typical Kubernetes
+  API behavior, throwing an `already exists` error. If an individual passes
+  `default`, they'd have to write conditional to only create the namespace if it
+  is not `default` or `kube-system`.
 
 - When updating the `selector` in Service after omitting it the first time,
   running `terraform apply` results in an error.
@@ -25,38 +39,13 @@ statefulset. Run the commands below to deploy both to a Kubernetes cluster.
   ```sh
   Error: Failed to update service: jsonpatch replace operation does not apply: doc is missing key: /spec/selector
 
-  on service.tf line 1, in resource "kubernetes_service" "example":
-   1: resource "kubernetes_service" "example" {
+  on service.tf line 1, in resource "kubernetes_service" "demo":
+   1: resource "kubernetes_service" "demo" {
   ```
 
-- Using dynamic blocks for `container`. Need to follow-up to see how this is
-  possible. It doesn't seem to pick up the attributes in the object.
-
-- If I set variable to `null` as default for Kubernetes namespace, plan goes
-  through because it knows to pass `default`. However, running `terraform apply`
-  to create a custom namespace before running the module throws an error.
-
-  ```shell
-  Error: Namespace "" is invalid: metadata.name: Required value: name or generateName is required
-
-  on main.tf line 5, in resource "kubernetes_namespace" "demo":
-   5: resource "kubernetes_namespace" "demo" {
-  ```
-
-- Passing default namespace to `kubernetes_namespace` resources should not
-  describe it as new. Maybe it needs to be `terraform import`? But Kubernetes
-  API throws error.
-
-  ```shell
-  kubernetes_namespace.example: Creating...
-
-  Error: namespaces "default" already exists
-  ```
-
-- `beta` API not available. As a result, `PodDisruptionBudget` for the zookeeper
-  example is omitted.
-
-- No `podAffinity` (GA) or `podAntiAffinity` (Kubernetes 1.14 beta).
+- Terraform v0.12: Difficult to determine if dynamic blocks for `container` is
+  available. When using a for-each loop, it cannot find the attributes for the
+  list of objects. Needs follow-up.
 
 - Is there a way to translate Kubernetes YAML or JSON to Terraform? Tried to use
   raw JSON as a Terraform file, does not conform to syntax.

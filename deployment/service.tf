@@ -1,4 +1,4 @@
-resource "kubernetes_service" "example" {
+resource "kubernetes_service" "demo" {
   metadata {
     name = var.app.name
     namespace = var.namespace
