@@ -2,6 +2,10 @@ variable "namespace" {
   default = null
 }
 
+variable "user_id" {
+  default = 1001
+}
+
 variable "replicas" {
   default = 1
 }
