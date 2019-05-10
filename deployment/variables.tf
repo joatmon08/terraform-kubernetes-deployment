@@ -12,8 +12,8 @@ variable "service_port" {
 
 variable "app" {
   type = object({
-      name = string,
-      image = string,
-      port = number
+    name = string,
+    image = string,
+    port = number
   })
 }
