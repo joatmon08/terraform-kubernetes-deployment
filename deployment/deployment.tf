@@ -24,11 +24,18 @@ resource "kubernetes_deployment" "demo" {
       }
 
       spec {
+        security_context {
+          run_as_user = var.user_id
+        }
+
         container {
           name = var.app.name
           image = var.app.image
           port {
             container_port = var.app.port
+          }
+          security_context {
+            allow_privilege_escalation = false
           }
         }
       }
