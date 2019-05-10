@@ -49,28 +49,28 @@ resource "kubernetes_stateful_set" "zk" {
             }
           }
           port {
-            container_port = var.ports.client
-            name = "client"
+            container_port = var.ports.client.port
+            name = var.ports.client.name
           }
           port {
-            container_port = var.ports.server
-            name = "server"
+            container_port = var.ports.server.port
+            name = var.ports.server.name
           }
           port {
-            container_port = var.ports.leader_election
-            name = "leader-election"
+            container_port = var.ports.leader_election.port
+            name = var.ports.leader_election.name
           }
           command = [
             "sh",
             "-c",
-            "start-zookeeper --servers=${var.replicas} --data_dir=/var/lib/zookeeper/data --data_log_dir=/var/lib/zookeeper/data/log --conf_dir=/opt/zookeeper/conf --client_port=${var.ports.client} --election_port=${var.ports.leader_election} --server_port=${var.ports.server} --tick_time=2000 --init_limit=10 --sync_limit=5 --heap=512M --max_client_cnxns=60 --snap_retain_count=3 --purge_interval=12 --max_session_timeout=40000 --min_session_timeout=4000 --log_level=INFO"
+            "start-zookeeper --servers=${var.replicas} --data_dir=/var/lib/zookeeper/data --data_log_dir=/var/lib/zookeeper/data/log --conf_dir=/opt/zookeeper/conf --client_port=${var.ports.client.port} --election_port=${var.ports.leader_election.port} --server_port=${var.ports.server.port} --tick_time=2000 --init_limit=10 --sync_limit=5 --heap=512M --max_client_cnxns=60 --snap_retain_count=3 --purge_interval=12 --max_session_timeout=40000 --min_session_timeout=4000 --log_level=INFO"
           ]
           readiness_probe {
             exec {
               command = [
                 "sh",
                 "-c",
-                "zookeeper-ready ${var.ports.client}"
+                "zookeeper-ready ${var.ports.client.port}"
               ]
             }
             initial_delay_seconds = 10
@@ -81,7 +81,7 @@ resource "kubernetes_stateful_set" "zk" {
               command = [
                 "sh",
                 "-c",
-                "zookeeper-ready ${var.ports.client}"
+                "zookeeper-ready ${var.ports.client.port}"
               ]
             }
             initial_delay_seconds = 10

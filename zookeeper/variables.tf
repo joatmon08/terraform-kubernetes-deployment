@@ -26,14 +26,32 @@ variable "requests" {
 
 variable "ports" {
   type = object({
-    server = number,
-    leader_election = number,
-    client = number
+    server = object({
+      name = string,
+      port = number
+    }),
+    leader_election = object({
+      name = string,
+      port = number
+    }),
+    client = object({
+      name = string,
+      port = number
+    })
   })
 
   default = {
-    server = 2888,
-    leader_election = 3888,
-    client = 2181
+    server = {
+      name = "server",
+      port = 2888
+    },
+    leader_election = {
+      name = "leader-election",
+      port = 3888
+    },
+    client = {
+      name = "client",
+      port = 2181
+    }
   }
 }
