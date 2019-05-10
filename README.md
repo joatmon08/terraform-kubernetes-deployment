@@ -24,7 +24,7 @@ Below are features that are currently not covered by the provider.
 - `beta` API not available. As a result, `PodDisruptionBudget` for the zookeeper
   demo is omitted.
 
-- No `podAffinity` (GA) or `podAntiAffinity` (Kubernetes 1.14 beta).
+- No `podAffinity` or `podAntiAffinity` (Kubernetes 1.14 beta).
 
 ## Kubernetes Provider Questions
 
