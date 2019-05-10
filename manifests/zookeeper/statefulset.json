@@ -1,0 +1,184 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "apps/v1",
+            "kind": "StatefulSet",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"name\":\"zk\",\"namespace\":\"default\"},\"spec\":{\"podManagementPolicy\":\"OrderedReady\",\"replicas\":3,\"selector\":{\"matchLabels\":{\"app\":\"zk\"}},\"serviceName\":\"zk-hs\",\"template\":{\"metadata\":{\"labels\":{\"app\":\"zk\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchExpressions\":[{\"key\":\"app\",\"operator\":\"In\",\"values\":[\"zk\"]}]},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":100}]}},\"containers\":[{\"command\":[\"sh\",\"-c\",\"start-zookeeper --servers=3 --data_dir=/var/lib/zookeeper/data --data_log_dir=/var/lib/zookeeper/data/log --conf_dir=/opt/zookeeper/conf --client_port=2181 --election_port=3888 --server_port=2888 --tick_time=2000 --init_limit=10 --sync_limit=5 --heap=512M --max_client_cnxns=60 --snap_retain_count=3 --purge_interval=12 --max_session_timeout=40000 --min_session_timeout=4000 --log_level=INFO\"],\"image\":\"k8s.gcr.io/kubernetes-zookeeper:1.0-3.4.10\",\"imagePullPolicy\":\"Always\",\"livenessProbe\":{\"exec\":{\"command\":[\"sh\",\"-c\",\"zookeeper-ready 2181\"]},\"initialDelaySeconds\":10,\"timeoutSeconds\":5},\"name\":\"kubernetes-zookeeper\",\"ports\":[{\"containerPort\":2181,\"name\":\"client\"},{\"containerPort\":2888,\"name\":\"server\"},{\"containerPort\":3888,\"name\":\"leader-election\"}],\"readinessProbe\":{\"exec\":{\"command\":[\"sh\",\"-c\",\"zookeeper-ready 2181\"]},\"initialDelaySeconds\":10,\"timeoutSeconds\":5},\"resources\":{\"requests\":{\"cpu\":\"0.5\",\"memory\":\"1Gi\"}},\"volumeMounts\":[{\"mountPath\":\"/var/lib/zookeeper\",\"name\":\"datadir\"}]}],\"securityContext\":{\"fsGroup\":1000,\"runAsUser\":1000}}},\"updateStrategy\":{\"type\":\"RollingUpdate\"},\"volumeClaimTemplates\":[{\"metadata\":{\"name\":\"datadir\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"10Gi\"}}}}]}}\n"
+                },
+                "creationTimestamp": "2019-05-10T13:54:48Z",
+                "generation": 1,
+                "name": "zk",
+                "namespace": "default",
+                "resourceVersion": "4069",
+                "selfLink": "/apis/apps/v1/namespaces/default/statefulsets/zk",
+                "uid": "2d14b4c2-732b-11e9-b8a7-080027bf86ea"
+            },
+            "spec": {
+                "podManagementPolicy": "OrderedReady",
+                "replicas": 3,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app": "zk"
+                    }
+                },
+                "serviceName": "zk-hs",
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "zk"
+                        }
+                    },
+                    "spec": {
+                        "affinity": {
+                            "podAntiAffinity": {
+                                "preferredDuringSchedulingIgnoredDuringExecution": [
+                                    {
+                                        "podAffinityTerm": {
+                                            "labelSelector": {
+                                                "matchExpressions": [
+                                                    {
+                                                        "key": "app",
+                                                        "operator": "In",
+                                                        "values": [
+                                                            "zk"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            "topologyKey": "kubernetes.io/hostname"
+                                        },
+                                        "weight": 100
+                                    }
+                                ]
+                            }
+                        },
+                        "containers": [
+                            {
+                                "command": [
+                                    "sh",
+                                    "-c",
+                                    "start-zookeeper --servers=3 --data_dir=/var/lib/zookeeper/data --data_log_dir=/var/lib/zookeeper/data/log --conf_dir=/opt/zookeeper/conf --client_port=2181 --election_port=3888 --server_port=2888 --tick_time=2000 --init_limit=10 --sync_limit=5 --heap=512M --max_client_cnxns=60 --snap_retain_count=3 --purge_interval=12 --max_session_timeout=40000 --min_session_timeout=4000 --log_level=INFO"
+                                ],
+                                "image": "k8s.gcr.io/kubernetes-zookeeper:1.0-3.4.10",
+                                "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "sh",
+                                            "-c",
+                                            "zookeeper-ready 2181"
+                                        ]
+                                    },
+                                    "failureThreshold": 3,
+                                    "initialDelaySeconds": 10,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 5
+                                },
+                                "name": "kubernetes-zookeeper",
+                                "ports": [
+                                    {
+                                        "containerPort": 2181,
+                                        "name": "client",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 2888,
+                                        "name": "server",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 3888,
+                                        "name": "leader-election",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "sh",
+                                            "-c",
+                                            "zookeeper-ready 2181"
+                                        ]
+                                    },
+                                    "failureThreshold": 3,
+                                    "initialDelaySeconds": 10,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 5
+                                },
+                                "resources": {
+                                    "requests": {
+                                        "cpu": "500m",
+                                        "memory": "1Gi"
+                                    }
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/var/lib/zookeeper",
+                                        "name": "datadir"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "fsGroup": 1000,
+                            "runAsUser": 1000
+                        },
+                        "terminationGracePeriodSeconds": 30
+                    }
+                },
+                "updateStrategy": {
+                    "type": "RollingUpdate"
+                },
+                "volumeClaimTemplates": [
+                    {
+                        "metadata": {
+                            "creationTimestamp": null,
+                            "name": "datadir"
+                        },
+                        "spec": {
+                            "accessModes": [
+                                "ReadWriteOnce"
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "storage": "10Gi"
+                                }
+                            },
+                            "volumeMode": "Filesystem"
+                        },
+                        "status": {
+                            "phase": "Pending"
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "collisionCount": 0,
+                "currentReplicas": 3,
+                "currentRevision": "zk-6975976577",
+                "observedGeneration": 1,
+                "readyReplicas": 3,
+                "replicas": 3,
+                "updateRevision": "zk-6975976577",
+                "updatedReplicas": 3
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": "",
+        "selfLink": ""
+    }
+}
