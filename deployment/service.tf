@@ -1,20 +1,20 @@
 resource "kubernetes_service" "demo" {
   metadata {
-    name = var.app.name
+    name = var.name
     namespace = var.namespace
     labels = {
-      app = var.app.name
+      app = var.name
       }
   }
 
   spec {
     selector = {
-      app = var.app.name
+      app = var.name
     }
 
     port {
       port = var.service_port
-      target_port = var.app.port
+      target_port = var.containers[0].port
     }
   }
 }

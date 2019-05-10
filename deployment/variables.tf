@@ -2,6 +2,10 @@ variable "namespace" {
   default = null
 }
 
+variable "name" {
+  type = string
+}
+
 variable "user_id" {
   default = 1001
 }
@@ -14,10 +18,10 @@ variable "service_port" {
   default = 80
 }
 
-variable "app" {
-  type = object({
+variable "containers" {
+  type = list(object({
     name = string,
     image = string,
     port = number
-  })
+  }))
 }
