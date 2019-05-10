@@ -11,6 +11,9 @@ provider](https://www.terraform.io/docs/providers/kubernetes/index.html).
 
 ## Usage
 
+The `main.tf` file references a minimal nginx deployment and zookeeper
+statefulset. Run the commands below to deploy both to a Kubernetes cluster.
+
 - `terraform plan`
 - `terraform apply`
 
