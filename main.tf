@@ -5,7 +5,7 @@ provider "kubernetes" {
 resource "kubernetes_namespace" "demo" {
   count = var.namespace == "default" || var.namespace == "kube-system" ? 0 : 1
   metadata {
-    name = "terraform-kubernetes-demo"
+    name = var.namespace
   }
 }
 
