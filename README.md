@@ -26,7 +26,7 @@ Below are features that are currently not covered by the provider.
 
 - No `podAffinity` (GA) or `podAntiAffinity` (Kubernetes 1.14 beta).
 
-## Questions
+## Kubernetes Provider Questions
 
 - Creating `default` namespace to `kubernetes_namespace` has typical Kubernetes
   API behavior, throwing an `already exists` error. If an individual passes
@@ -43,9 +43,19 @@ Below are features that are currently not covered by the provider.
    1: resource "kubernetes_service" "demo" {
   ```
 
-- Terraform v0.12: Difficult to determine if dynamic blocks for `container` is
-  available. When using a for-each loop, it cannot find the attributes for the
-  list of objects. Needs follow-up.
-
 - Is there a way to translate Kubernetes YAML or JSON to Terraform? Tried to use
   raw JSON as a Terraform file, does not conform to syntax.
+
+## Terraform v0.12 Questions
+
+- Terraform v0.12: When using a for-each loop, it cannot find the attributes for
+  the list of objects. The [Upgrading Terraform
+  Guide](https://www.terraform.io/upgrade-guides/0-12.html) has the correct
+  reference, requires `x.value.attribute`. [Terraform
+  Expressions](https://www.terraform.io/docs/configuration/expressions.html) has
+  an example but does not reflect why `.value` must be used before calling the
+  `.attribute`.
+
+- Kubernetes Provider / Terraform 0.12? Generally, it seems that the last
+  attribute in the series should have an `=`. The error message and
+  guess-and-check covers what is not in documentation.

@@ -12,11 +12,14 @@ resource "kubernetes_namespace" "demo" {
 module "nginx" {
   source = "./deployment"
   namespace = var.namespace
-  app = {
-    name = "nginx"
-    image = "nginxinc/nginx-unprivileged:1.16"
-    port = 8080
-  }
+  name = "nginx"
+  containers = [
+    {
+      name = "nginx"
+      image = "nginxinc/nginx-unprivileged:1.16"
+      port = 8080
+    }
+  ]
 }
 
 module "zookeeper" {

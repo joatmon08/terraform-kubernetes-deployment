@@ -1,9 +1,9 @@
 resource "kubernetes_deployment" "demo" {
   metadata {
-    name = var.app.name
+    name = var.name
     namespace = var.namespace
     labels = {
-      app = var.app.name
+      app = var.name
     }
   }
 
@@ -12,14 +12,14 @@ resource "kubernetes_deployment" "demo" {
 
     selector {
       match_labels = {
-        app = var.app.name
+        app = var.name
       }
     }
 
     template {
       metadata {
         labels = {
-            app = var.app.name
+            app = var.name
         }
       }
 
@@ -28,14 +28,17 @@ resource "kubernetes_deployment" "demo" {
           run_as_user = var.user_id
         }
 
-        container {
-          name = var.app.name
-          image = var.app.image
-          port {
-            container_port = var.app.port
-          }
-          security_context {
-            allow_privilege_escalation = false
+        dynamic "container" {
+          for_each = var.containers
+          content {
+            name = container.value.name
+            image = container.value.image
+            port {
+              container_port = container.value.port
+            }
+            security_context {
+              allow_privilege_escalation = false
+            }
           }
         }
       }
