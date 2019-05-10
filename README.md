@@ -26,7 +26,7 @@ Below are features that are currently not covered by the provider.
 
 - No `podAffinity` or `podAntiAffinity` (Kubernetes 1.14 beta).
 
-## Kubernetes Provider Questions
+## Kubernetes Provider Observations
 
 - Creating `default` namespace to `kubernetes_namespace` has typical Kubernetes
   API behavior, throwing an `already exists` error. If an individual passes
@@ -46,7 +46,7 @@ Below are features that are currently not covered by the provider.
 - Is there a way to translate Kubernetes YAML or JSON to Terraform? Tried to use
   raw JSON as a Terraform file, does not conform to syntax.
 
-## Terraform v0.12 Questions
+## Terraform v0.12 Observations
 
 - Terraform v0.12: When using a for-each loop, it cannot find the attributes for
   the list of objects. The [Upgrading Terraform
