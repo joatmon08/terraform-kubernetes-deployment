@@ -13,13 +13,13 @@ resource "kubernetes_service" "zk_headless" {
     }
 
     port {
-      port = var.ports.server
-      name = "server"
+      port = var.ports.server.port
+      name = var.ports.server.name
     }
 
     port {
-      port = var.ports.leader_election
-      name = "leader-election"
+      port = var.ports.leader_election.port
+      name = var.ports.leader_election.name
     }
   }
 }
@@ -39,8 +39,8 @@ resource "kubernetes_service" "zk_client" {
     }
 
     port {
-      port = var.ports.client
-      name = "client"
+      port = var.ports.client.port
+      name = var.ports.client.name
     }
   }
 }
