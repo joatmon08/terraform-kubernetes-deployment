@@ -54,3 +54,6 @@ provider](https://www.terraform.io/docs/providers/kubernetes/index.html).
   example is omitted.
 
 - No `podAffinity` (GA) or `podAntiAffinity` (Kubernetes 1.14 beta).
+
+- Is there a way to translate Kubernetes YAML or JSON to Terraform? Tried to use
+  raw JSON as a Terraform file, does not conform to syntax.
