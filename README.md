@@ -7,7 +7,11 @@ provider](https://www.terraform.io/docs/providers/kubernetes/index.html).
 ## Pre-Requisites
 
 - Terraform v0.12.0-rc1
-- Kubernetes 1.10.11
+
+- Kubernetes 1.14.1
+
+  - Note: Kubernetes on Docker for Desktop runs 1.10.11. However, StatefulSets
+    with headless service is not compatible.
 
 ## Usage
 
