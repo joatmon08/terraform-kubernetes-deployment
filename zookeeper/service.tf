@@ -1,4 +1,4 @@
-resource "kubernetes_service" "zookeeper_headless" {
+resource "kubernetes_service" "zk_headless" {
   metadata {
     name = "${var.name}-headless"
     namespace = var.namespace
@@ -24,7 +24,7 @@ resource "kubernetes_service" "zookeeper_headless" {
   }
 }
 
-resource "kubernetes_service" "zookeeper_client" {
+resource "kubernetes_service" "zk_client" {
   metadata {
     name = "${var.name}-client"
     namespace = var.namespace
