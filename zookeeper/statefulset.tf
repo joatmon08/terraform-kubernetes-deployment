@@ -109,4 +109,8 @@ resource "kubernetes_stateful_set" "zk" {
       }
     }
   }
+
+  provisioner "local-exec" {
+    command = "make test"
+  }
 }
