@@ -1,4 +1,4 @@
-resource "kubernetes_stateful_set" "zk" {
+resource "kubernetes_stateful_set" "zookeeper" {
   metadata {
     name = var.name
     namespace = var.namespace
@@ -16,7 +16,7 @@ resource "kubernetes_stateful_set" "zk" {
       }
     }
 
-    service_name = kubernetes_service.zk_headless.metadata[0].name
+    service_name = kubernetes_service.zookeeper_headless.metadata[0].name
 
     update_strategy {
       type = "RollingUpdate"
