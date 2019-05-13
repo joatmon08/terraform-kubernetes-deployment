@@ -10,8 +10,14 @@ provider](https://www.terraform.io/docs/providers/kubernetes/index.html).
 
 - Kubernetes 1.14.1
 
-  - Note: Kubernetes on Docker for Desktop runs 1.10.11. However, StatefulSets
-    with headless service is not compatible.
+  - Note: Kubernetes on Docker for Desktop will *not* work for zookeeper, as it
+    runs v1.10.11. For running locally, [install
+    Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) and run
+    with the following command:
+
+    ```bash
+    $ minikube start --cpus 4 --memory 8192
+    ```
 
 ## Usage
 
