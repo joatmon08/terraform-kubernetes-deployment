@@ -58,11 +58,11 @@ The `main.tf` file references a:
 - Zookeeper StatefulSet
   - Includes `provisioner` to run a quick acceptance test
   - Module in `zookeeper` directory
-  - To enable, change variable `enable_module.zookeeper` to `1`.
+  - To enable, change variable `enable_module.zookeeper` to `true`.
     ```hcl
     enable_module = {
-      zookeeper = 1,
-      helm_consul = 0
+      zookeeper = true,
+      helm_consul = false
     }
     ```
 
@@ -72,8 +72,8 @@ The `main.tf` file references a:
   - To enable, change variable `enable_module.helm_consul` to `1`
     ```hcl
     enable_module = {
-      zookeeper = 0,
-      helm_consul = 1
+      zookeeper = false,
+      helm_consul = true
     }
     ```
 

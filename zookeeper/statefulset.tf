@@ -1,5 +1,5 @@
 resource "kubernetes_stateful_set" "zk" {
-  count = var.enable
+  count = var.enable ? 1 : 0
 
   metadata {
     name      = var.name

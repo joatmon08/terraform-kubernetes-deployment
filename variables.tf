@@ -28,12 +28,12 @@ variable "containers" {
 
 variable "enable_module" {
   type = object({
-    zookeeper   = number,
-    helm_consul = number
+    zookeeper   = bool,
+    helm_consul = bool
   })
 
   default = {
-    zookeeper   = 0,
-    helm_consul = 0
+    zookeeper   = true,
+    helm_consul = true
   }
 }

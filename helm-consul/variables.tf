@@ -1,5 +1,5 @@
 variable "enable" {
-  default = 0
+  default = false
 }
 
 variable "name" {}

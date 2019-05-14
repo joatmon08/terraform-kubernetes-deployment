@@ -1,5 +1,5 @@
 resource "kubernetes_service" "zk_headless" {
-  count = var.enable
+  count = var.enable ? 1 : 0
 
   metadata {
     name      = "${var.name}-headless"
@@ -27,7 +27,7 @@ resource "kubernetes_service" "zk_headless" {
 }
 
 resource "kubernetes_service" "zk_client" {
-  count = var.enable
+  count = var.enable ? 1 : 0
 
   metadata {
     name      = "${var.name}-client"

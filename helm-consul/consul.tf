@@ -1,5 +1,5 @@
 resource "helm_release" "consul" {
-  count     = var.enable
+  count     = var.enable ? 1 : 0
   name      = var.name
   chart     = "${path.module}/consul-helm"
   namespace = var.namespace

@@ -1,5 +1,5 @@
 resource "null_resource" "hosts" {
-  count = var.replicas
+  count = var.enable ? var.replicas : 0
 
   triggers = {
     zk_hosts = format("%s-%d:%d", var.name, count.index, var.ports.client.port)
@@ -7,7 +7,7 @@ resource "null_resource" "hosts" {
 }
 
 resource "kubernetes_config_map" "zk_connection_string" {
-  count = var.enable
+  count = var.enable ? 1 : 0
 
   metadata {
     name      = "${var.name}-connection-string"
