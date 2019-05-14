@@ -38,23 +38,25 @@ Below are features that are currently not covered by the provider.
 
 ## Kubernetes Provider Observations
 
-- Creating `default` namespace to `kubernetes_namespace` has typical Kubernetes
-  API behavior, throwing an `already exists` error. If an individual passes
-  `default`, they'd have to write conditional to only create the namespace if it
-  is not `default` or `kube-system`.
+- If creating modules for re-use and expecting a user to pass an arbitrary
+  namespace, write a conditional to check for `default` or `kube-system` before
+  creating the namespace. The provider behaves as the Kubernetes API would for
+  namespaces.
 
-- When updating the `selector` in Service after omitting it the first time,
-  running `terraform apply` results in an error.
+- Forgot to include the `selector` for a Service. Ran `terraform apply` but the
+  service was not properly created. Found the mistake and corrected it in the
+  service. Ran `terraform apply` a second time and it resulted in the following
+  error.
 
-  ```sh
+  ```bash
   Error: Failed to update service: jsonpatch replace operation does not apply: doc is missing key: /spec/selector
 
   on service.tf line 1, in resource "kubernetes_service" "demo":
    1: resource "kubernetes_service" "demo" {
   ```
 
-- Is there a way to translate Kubernetes YAML or JSON to Terraform? Tried to use
-  raw JSON as a Terraform file, does not conform to syntax.
+- [k2tf Tool](https://github.com/sl1pm4t/k2tf) to translate Kubernetes YAML to
+  Terraform (HCL). To convert HCL to HCL2, use `terraform 0.12upgrade`.
 
 ## Terraform v0.12 Observations
 
@@ -66,6 +68,5 @@ Below are features that are currently not covered by the provider.
   an example but does not reflect why `.value` must be used before calling the
   `.attribute`.
 
-- Kubernetes Provider / Terraform 0.12? Generally, it seems that the last
-  attribute in the series should have an `=`. The error message and
-  guess-and-check covers what is not in documentation.
+- Generally, it seems that the last attribute in the series should have an `=`.
+  The error message and guess-and-check covers what is not in documentation.
