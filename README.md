@@ -8,8 +8,11 @@ provider](https://www.terraform.io/docs/providers/helm/index.html).
 
 ## Pre-Requisites
 
-- [Terraform Cloud](https://www.terraform.io/docs/enterprise/free/index.html)
-  Remote State Storage
+- Terraform Cloud Remote State Storage
+
+  - See the [Getting
+    Started](https://www.terraform.io/docs/enterprise/free/index.html) guide to
+    set up an account.
 
 - Terraform v0.12.0-alpha4 (for Terraform Cloud)
 
