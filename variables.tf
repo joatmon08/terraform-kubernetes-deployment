@@ -25,3 +25,15 @@ variable "containers" {
     port = number
   }))
 }
+
+variable "enable_module" {
+  type = object({
+    zookeeper = number,
+    helm_consul = number
+  })
+
+  default = {
+    zookeeper = 1,
+    helm_consul = 1
+  }
+}
