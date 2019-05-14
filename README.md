@@ -14,12 +14,24 @@ provider](https://www.terraform.io/docs/providers/helm/index.html).
     Started](https://www.terraform.io/docs/enterprise/free/index.html) guide to
     set up an account.
 
-- Terraform v0.12.0-alpha4 (for Terraform Cloud)
+- Terraform v0.12.0-beta2
+
+  - While the latest Terraform v0.12.0 is a release candidate, Terraform Cloud
+    remote state storage backend does not recognize `0.12.0-rc1` as a valid
+    version. 
+
+  - Initialize providers & modules.
+
+    ```bash
+    $ terraform init
+    ```
 
 - Kubernetes v1.14.1
 
-  - Note: Kubernetes on Docker for Desktop will *not* work for zookeeper, as it
-    runs v1.10.11. For running locally, [install
+  - Kubernetes on Docker for Desktop Stable will *not* work for zookeeper, as it
+    runs v1.10.11. Docker for Desktop Edge may have other versions available.
+
+  - If not using Docker for Desktop, [install
     Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) and run
     with the following command:
 
