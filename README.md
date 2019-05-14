@@ -2,7 +2,9 @@
 
 This repository contains demos for Terraform + Kubernetes with the [Terraform
 Kubernetes
-provider](https://www.terraform.io/docs/providers/kubernetes/index.html).
+provider](https://www.terraform.io/docs/providers/kubernetes/index.html) and the
+[Terraform Helm
+provider](https://www.terraform.io/docs/providers/helm/index.html).
 
 ## Pre-Requisites
 
@@ -21,22 +23,29 @@ provider](https://www.terraform.io/docs/providers/kubernetes/index.html).
 
 ## Usage
 
-The `main.tf` file references a minimal nginx deployment and zookeeper
-statefulset. Run the commands below to deploy both to a Kubernetes cluster.
+The `main.tf` file references a:
+
+- Nginx Deployment
+- Zookeeper StatefulSet: includes `provisioner` to run a quick acceptance test
+- Consul Helm chart: includes `provisioner` to run `helm test`
+
+Run the commands below to deploy all examples to a Kubernetes cluster.
 
 - `terraform plan`
 - `terraform apply`
 
-## Not on Feature List
+To clean up, run `terraform destroy`.
 
-Below are features that are currently not covered by the provider.
+## Kubernetes Provider Observations
+
+Below are features that are currently not covered by the Kubernetes provider:
 
 - `beta` API not available. As a result, `PodDisruptionBudget` for the zookeeper
   demo is omitted.
 
 - No `podAffinity` or `podAntiAffinity` (Kubernetes 1.14 beta).
 
-## Kubernetes Provider Observations
+Other observations:
 
 - If creating modules for re-use and expecting a user to pass an arbitrary
   namespace, write a conditional to check for `default` or `kube-system` before
@@ -57,6 +66,19 @@ Below are features that are currently not covered by the provider.
 
 - [k2tf Tool](https://github.com/sl1pm4t/k2tf) to translate Kubernetes YAML to
   Terraform (HCL). To convert HCL to HCL2, use `terraform 0.12upgrade`.
+
+## Helm Provider Observations
+
+- If Helm does not finish creating the resource and `terraform apply` is
+  stopped, running `terraform destroy` will not purge the Helm release. Instead,
+  it will orphan the release. Manually run `helm del --purge <release name>` in
+  order to clean up all orphaned releases.
+
+- Running a local chart does not require the `helm_repository` resource. The
+  path to the chart is referenced within the `helm_release` resource. See this
+  [closed
+  issue](https://github.com/terraform-providers/terraform-provider-helm/issues/189)
+  for additional context.
 
 ## Terraform v0.12 Observations
 
