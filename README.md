@@ -18,7 +18,7 @@ provider](https://www.terraform.io/docs/providers/helm/index.html).
 
   - While the latest Terraform v0.12.0 is a release candidate, Terraform Cloud
     remote state storage backend does not recognize `0.12.0-rc1` as a valid
-    version. 
+    version. [Download 0.12.0-beta2 here.](https://releases.hashicorp.com/terraform/0.12.0-beta2/)
 
   - Initialize providers & modules.
 
@@ -26,7 +26,7 @@ provider](https://www.terraform.io/docs/providers/helm/index.html).
     $ terraform init
     ```
 
-- Kubernetes v1.14.1
+- Kubernetes v1.14.1 cluster with 4CPU & 8GB of memory
 
   - Kubernetes on Docker for Desktop Stable will *not* work for zookeeper, as it
     runs v1.10.11. Docker for Desktop Edge may have other versions available.
@@ -37,6 +37,16 @@ provider](https://www.terraform.io/docs/providers/helm/index.html).
 
     ```bash
     $ minikube start --cpus 4 --memory 8192
+    ```
+
+- Helm v2.13.1
+
+  - [Download here.](https://github.com/helm/helm/releases)
+
+  - Make sure tiller is running in the Kubernetes cluster.
+
+    ```bash
+    $ helm init
     ```
 
 ## Usage
