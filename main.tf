@@ -14,24 +14,11 @@ provider "null" {
   version = "~> 2.1"
 }
 
-resource "kubernetes_namespace" "demo" {
-  count = var.namespace == "default" || var.namespace == "kube-system" ? 0 : 1
+resource "kubernetes_namespace" "example" {
+  count = var.namespace == "default" || var.namespace == "kube-system" || var.namespace == null ? 0 : 1
   metadata {
     name = var.namespace
   }
-}
-
-module "nginx" {
-  source = "./deployment"
-  namespace = var.namespace
-  name = "nginx"
-  containers = [
-    {
-      name = "nginx"
-      image = "nginxinc/nginx-unprivileged:1.16"
-      port = 8080
-    }
-  ]
 }
 
 module "zookeeper" {

@@ -1,6 +1,6 @@
-# terraform-kubernetes-demo
+# terraform-k8s
 
-This repository contains demos for Terraform + Kubernetes with the [Terraform
+This repository contains examples for Terraform + Kubernetes with the [Terraform
 Kubernetes
 provider](https://www.terraform.io/docs/providers/kubernetes/index.html) and the
 [Terraform Helm
@@ -26,22 +26,28 @@ provider](https://www.terraform.io/docs/providers/helm/index.html).
 The `main.tf` file references a:
 
 - Nginx Deployment
-- Zookeeper StatefulSet: includes `provisioner` to run a quick acceptance test
-- Consul Helm chart: includes `provisioner` to run `helm test`
+
+- Zookeeper StatefulSet
+  - Includes `provisioner` to run a quick acceptance test
+  - Module in `zookeeper` directory
+
+- Consul Helm chart
+  - Includes `provisioner` to run `helm test`
+  - Module in `helm-consul` directory
 
 Run the commands below to deploy all examples to a Kubernetes cluster.
 
-- `terraform plan`
-- `terraform apply`
+- `terraform plan -var-file=nginx.tfvars`
+- `terraform apply -var-file=nginx.tfvars`
 
-To clean up, run `terraform destroy`.
+To clean up, run `terraform destroy -var-file=nginx.tfvars`.
 
 ## Kubernetes Provider Observations
 
 Below are features that are currently not covered by the Kubernetes provider:
 
 - `beta` API not available. As a result, `PodDisruptionBudget` for the zookeeper
-  demo is omitted.
+  example is omitted.
 
 - No `podAffinity` or `podAntiAffinity` (Kubernetes 1.14 beta).
 
@@ -60,8 +66,8 @@ Other observations:
   ```bash
   Error: Failed to update service: jsonpatch replace operation does not apply: doc is missing key: /spec/selector
 
-  on service.tf line 1, in resource "kubernetes_service" "demo":
-   1: resource "kubernetes_service" "demo" {
+  on service.tf line 1, in resource "kubernetes_service" "deployment":
+   1: resource "kubernetes_service" "deployment" {
   ```
 
 - [k2tf Tool](https://github.com/sl1pm4t/k2tf) to translate Kubernetes YAML to
