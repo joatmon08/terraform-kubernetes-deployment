@@ -1,8 +1,8 @@
 resource "helm_release" "consul" {
-  count      = var.enable
-  name       = var.name
-  chart      = "${path.module}/consul-helm"
-  namespace  = var.namespace
+  count     = var.enable
+  name      = var.name
+  chart     = "${path.module}/consul-helm"
+  namespace = var.namespace
 
   set {
     name  = "server.replicas"
