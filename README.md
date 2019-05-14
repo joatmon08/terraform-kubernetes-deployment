@@ -58,10 +58,24 @@ The `main.tf` file references a:
 - Zookeeper StatefulSet
   - Includes `provisioner` to run a quick acceptance test
   - Module in `zookeeper` directory
+  - To enable, change variable `enable_module.zookeeper` to `1`.
+    ```hcl
+    enable_module = {
+      zookeeper = 1,
+      helm_consul = 0
+    }
+    ```
 
 - Consul Helm chart
   - Includes `provisioner` to run `helm test`
   - Module in `helm-consul` directory
+  - To enable, change variable `enable_module.helm_consul` to `1`
+    ```hcl
+    enable_module = {
+      zookeeper = 0,
+      helm_consul = 1
+    }
+    ```
 
 Run the commands below to deploy all examples to a Kubernetes cluster.
 

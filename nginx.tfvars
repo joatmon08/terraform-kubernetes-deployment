@@ -1,9 +1,11 @@
 namespace = "default"
+
 name = "nginx"
+
 containers = [
   {
-    name = "nginx"
+    name  = "nginx"
     image = "nginxinc/nginx-unprivileged:1.16"
-    port = 8080
-  }
+    port  = 8080
+  },
 ]
