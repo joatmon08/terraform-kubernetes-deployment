@@ -49,7 +49,7 @@ provider](https://www.terraform.io/docs/providers/helm/index.html).
     $ helm init
     ```
 
-## Usage
+## Modules
 
 The `main.tf` file references a:
 
@@ -76,6 +76,8 @@ The `main.tf` file references a:
       helm_consul = 1
     }
     ```
+
+## Usage
 
 Run the commands below to deploy all examples to a Kubernetes cluster.
 
