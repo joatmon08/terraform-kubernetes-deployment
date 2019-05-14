@@ -16,14 +16,14 @@ variable "image" {}
 
 variable "requests" {
   type = object({
-    memory = string,
-    cpu = string,
+    memory  = string,
+    cpu     = string,
     storage = string
   })
 
   default = {
-    memory = "1Gi",
-    cpu = "0.5",
+    memory  = "1Gi",
+    cpu     = "0.5",
     storage = "10Gi"
   }
 }

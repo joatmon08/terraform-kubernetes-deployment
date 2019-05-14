@@ -1,6 +1,6 @@
 resource "kubernetes_deployment" "example" {
   metadata {
-    name = var.name
+    name      = var.name
     namespace = var.namespace
     labels = {
       app = var.name
@@ -19,7 +19,7 @@ resource "kubernetes_deployment" "example" {
     template {
       metadata {
         labels = {
-            app = var.name
+          app = var.name
         }
       }
 
@@ -31,7 +31,7 @@ resource "kubernetes_deployment" "example" {
         dynamic "container" {
           for_each = var.containers
           content {
-            name = container.value.name
+            name  = container.value.name
             image = container.value.image
             port {
               container_port = container.value.port

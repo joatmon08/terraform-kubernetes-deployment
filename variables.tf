@@ -20,20 +20,20 @@ variable "service_port" {
 
 variable "containers" {
   type = list(object({
-    name = string,
+    name  = string,
     image = string,
-    port = number
+    port  = number
   }))
 }
 
 variable "enable_module" {
   type = object({
-    zookeeper = number,
+    zookeeper   = number,
     helm_consul = number
   })
 
   default = {
-    zookeeper = 0,
+    zookeeper   = 0,
     helm_consul = 0
   }
 }

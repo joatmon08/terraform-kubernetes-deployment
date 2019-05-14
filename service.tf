@@ -1,10 +1,10 @@
 resource "kubernetes_service" "example" {
   metadata {
-    name = var.name
+    name      = var.name
     namespace = var.namespace
     labels = {
       app = var.name
-      }
+    }
   }
 
   spec {
@@ -13,7 +13,7 @@ resource "kubernetes_service" "example" {
     }
 
     port {
-      port = var.service_port
+      port        = var.service_port
       target_port = var.containers[0].port
     }
   }
