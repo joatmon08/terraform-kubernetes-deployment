@@ -8,9 +8,12 @@ provider](https://www.terraform.io/docs/providers/helm/index.html).
 
 ## Pre-Requisites
 
-- Terraform v0.12.0-rc1
+- [Terraform Cloud](https://www.terraform.io/docs/enterprise/free/index.html)
+  Remote State Storage
 
-- Kubernetes 1.14.1
+- Terraform v0.12.0-alpha4 (for Terraform Cloud)
+
+- Kubernetes v1.14.1
 
   - Note: Kubernetes on Docker for Desktop will *not* work for zookeeper, as it
     runs v1.10.11. For running locally, [install

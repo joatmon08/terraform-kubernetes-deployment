@@ -1,5 +1,13 @@
 terraform {
   required_version = ">=0.12"
+
+  backend "remote" {
+    organization = "hashicorp-team-da"
+
+    workspaces {
+      name = "terraform-k8s"
+    }
+  }
 }
 
 provider "kubernetes" {
