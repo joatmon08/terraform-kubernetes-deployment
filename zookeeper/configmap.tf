@@ -7,6 +7,8 @@ resource "null_resource" "hosts" {
 }
 
 resource "kubernetes_config_map" "zk_connection_string" {
+  count = var.enable
+
   metadata {
     name      = "${var.name}-connection-string"
     namespace = var.namespace

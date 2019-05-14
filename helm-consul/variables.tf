@@ -1,3 +1,7 @@
+variable "enable" {
+  default = 0
+}
+
 variable "name" {}
 
 variable "namespace" {

@@ -26,10 +26,12 @@ module "zookeeper" {
   name = "zk"
   image = "k8s.gcr.io/kubernetes-zookeeper:1.0-3.4.10"
   namespace = var.namespace
+  enable = var.enable_module.zookeeper
 }
 
 module "helm-consul" {
   source = "./helm-consul"
   name = "consul"
   namespace = var.namespace
+  enable = var.enable_module.helm_consul
 }

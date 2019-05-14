@@ -1,4 +1,6 @@
 resource "kubernetes_service" "zk_headless" {
+  count = var.enable
+
   metadata {
     name = "${var.name}-headless"
     namespace = var.namespace
@@ -25,6 +27,8 @@ resource "kubernetes_service" "zk_headless" {
 }
 
 resource "kubernetes_service" "zk_client" {
+  count = var.enable
+
   metadata {
     name = "${var.name}-client"
     namespace = var.namespace
