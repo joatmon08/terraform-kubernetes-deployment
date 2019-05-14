@@ -2,7 +2,7 @@ resource "kubernetes_stateful_set" "zk" {
   count = var.enable
 
   metadata {
-    name = var.name
+    name      = var.name
     namespace = var.namespace
     labels = {
       app = var.name
@@ -25,11 +25,11 @@ resource "kubernetes_stateful_set" "zk" {
     }
 
     pod_management_policy = "OrderedReady"
-    
+
     template {
       metadata {
         labels = {
-            app = var.name
+          app = var.name
         }
       }
 
@@ -37,30 +37,30 @@ resource "kubernetes_stateful_set" "zk" {
 
         security_context {
           run_as_user = 1000
-          fs_group = 1000
+          fs_group    = 1000
         }
 
         container {
-          name = "zk"
+          name              = "zk"
           image_pull_policy = "Always"
-          image = var.image
+          image             = var.image
           resources {
             requests {
               memory = var.requests.memory
-              cpu = var.requests.cpu
+              cpu    = var.requests.cpu
             }
           }
           port {
             container_port = var.ports.client.port
-            name = var.ports.client.name
+            name           = var.ports.client.name
           }
           port {
             container_port = var.ports.server.port
-            name = var.ports.server.name
+            name           = var.ports.server.name
           }
           port {
             container_port = var.ports.leader_election.port
-            name = var.ports.leader_election.name
+            name           = var.ports.leader_election.name
           }
           command = [
             "sh",
@@ -76,7 +76,7 @@ resource "kubernetes_stateful_set" "zk" {
               ]
             }
             initial_delay_seconds = 10
-            timeout_seconds = 5
+            timeout_seconds       = 5
           }
           liveness_probe {
             exec {
@@ -87,10 +87,10 @@ resource "kubernetes_stateful_set" "zk" {
               ]
             }
             initial_delay_seconds = 10
-            timeout_seconds = 5
+            timeout_seconds       = 5
           }
           volume_mount {
-            name = "datadir"
+            name       = "datadir"
             mount_path = "/var/lib/zookeeper"
           }
         }

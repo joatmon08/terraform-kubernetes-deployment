@@ -1,6 +1,6 @@
 resource "null_resource" "hosts" {
   count = var.replicas
- 
+
   triggers = {
     zk_hosts = format("%s-%d:%d", var.name, count.index, var.ports.client.port)
   }
