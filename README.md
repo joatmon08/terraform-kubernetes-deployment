@@ -18,7 +18,9 @@ provider](https://www.terraform.io/docs/providers/helm/index.html).
 
   - While the latest Terraform v0.12.0 is a release candidate, Terraform Cloud
     remote state storage backend does not recognize `0.12.0-rc1` as a valid
-    version. [Download 0.12.0-beta2 here.](https://releases.hashicorp.com/terraform/0.12.0-beta2/)
+    version. [Download 0.12.0-beta2
+    here.](https://releases.hashicorp.com/terraform/0.12.0-beta2/) See [Github
+    issue](https://github.com/hashicorp/terraform/issues/21306).
 
   - Initialize providers & modules.
 
