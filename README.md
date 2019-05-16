@@ -88,7 +88,26 @@ Run the commands below to deploy all examples to a Kubernetes cluster.
 
 To clean up, run `terraform destroy -var-file=nginx.tfvars`.
 
-## Kubernetes Provider Observations
+## Kubernetes Provider Notes
+
+Below are features that are currently not covered by the Kubernetes provider:
+
+- `beta` API not available. As a result, `PodDisruptionBudget` for the zookeeper
+  example is omitted.
+
+- No `podAffinity` or `podAntiAffinity` (Kubernetes 1.14 beta).
+
+Observations:
+
+- If creating modules for re-use and expecting a user to pass an arbitrary
+  namespace, write a conditional to check for `default` or `kube-system` before
+  creating the namespace. The provider behaves as the Kubernetes API would for
+  namespaces.
+
+- Use [k2tf Tool](https://github.com/sl1pm4t/k2tf) to translate Kubernetes YAML to
+  Terraform (HCL). To convert HCL to HCL2, use `terraform 0.12upgrade`.
+
+## Kubernetes Provider Notes
 
 Below are features that are currently not covered by the Kubernetes provider:
 
@@ -104,43 +123,13 @@ Other observations:
   creating the namespace. The provider behaves as the Kubernetes API would for
   namespaces.
 
-- Forgot to include the `selector` for a Service. Ran `terraform apply` but the
-  service was not properly created. Found the mistake and corrected it in the
-  service. Ran `terraform apply` a second time and it resulted in the following
-  error.
-
-  ```bash
-  Error: Failed to update service: jsonpatch replace operation does not apply: doc is missing key: /spec/selector
-
-  on service.tf line 1, in resource "kubernetes_service" "deployment":
-   1: resource "kubernetes_service" "deployment" {
-  ```
-
 - [k2tf Tool](https://github.com/sl1pm4t/k2tf) to translate Kubernetes YAML to
   Terraform (HCL). To convert HCL to HCL2, use `terraform 0.12upgrade`.
 
-## Helm Provider Observations
-
-- If Helm does not finish creating the resource and `terraform apply` is
-  stopped, running `terraform destroy` will not purge the Helm release. Instead,
-  it will orphan the release. Manually run `helm del --purge <release name>` in
-  order to clean up all orphaned releases.
+## Helm Provider Notes
 
 - Running a local chart does not require the `helm_repository` resource. The
   path to the chart is referenced within the `helm_release` resource. See this
   [closed
   issue](https://github.com/terraform-providers/terraform-provider-helm/issues/189)
   for additional context.
-
-## Terraform v0.12 Observations
-
-- Terraform v0.12: When using a for-each loop, it cannot find the attributes for
-  the list of objects. The [Upgrading Terraform
-  Guide](https://www.terraform.io/upgrade-guides/0-12.html) has the correct
-  reference, requires `x.value.attribute`. [Terraform
-  Expressions](https://www.terraform.io/docs/configuration/expressions.html) has
-  an example but does not reflect why `.value` must be used before calling the
-  `.attribute`.
-
-- Generally, it seems that the last attribute in the series should have an `=`.
-  The error message and guess-and-check covers what is not in documentation.
