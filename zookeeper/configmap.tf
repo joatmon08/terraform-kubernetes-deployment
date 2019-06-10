@@ -18,4 +18,3 @@ resource "kubernetes_config_map" "zk_connection_string" {
     hosts = join(",", null_resource.hosts.*.triggers.zk_hosts)
   }
 }
-

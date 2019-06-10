@@ -9,3 +9,8 @@ containers = [
     port  = 8080
   },
 ]
+
+enable_module = {
+  zookeeper = true
+  helm_consul = true
+}

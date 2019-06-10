@@ -33,7 +33,7 @@ variable "enable_module" {
   })
 
   default = {
-    zookeeper   = false,
+    zookeeper   = true,
     helm_consul = false
   }
 }
