@@ -2,20 +2,21 @@ terraform {
   required_version = ">=0.12"
 
   backend "remote" {
-    organization = "hashicorp-team-da"
+    organization = "hashicorp-team-demo"
 
     workspaces {
-      name = "terraform-k8s"
+      name = "local-kubernetes"
     }
   }
 }
 
 provider "kubernetes" {
-  version = "~> 1.6"
+  version = "~> 1.7"
 }
 
 provider "helm" {
   version = "~> 0.9"
+  install_tiller = true
 }
 
 provider "null" {

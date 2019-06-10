@@ -14,6 +14,15 @@ resource "helm_release" "consul" {
     value = var.replicas
   }
 
+  set {
+    name  = "server.connect"
+    value = true
+  }
+
+  provisioner "local-exec" {
+    command = "helm init --upgrade"
+  }
+
   provisioner "local-exec" {
     command = "helm test ${var.name}"
   }

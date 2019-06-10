@@ -10,21 +10,17 @@ provider](https://www.terraform.io/docs/providers/helm/index.html).
 
 - Terraform Cloud Remote State Storage
 
-  - See the [Getting
-    Started](https://www.terraform.io/docs/enterprise/free/index.html) guide to
-    set up an account.
+  - [Sign up for an account](https://app.terraform.io/signup).
 
-- Terraform v0.12.0-beta2
+  - If this is to be used for a demo, ask the Community team for the demo login.
+    Go to [the local-kubernetes
+    workspace](https://app.terraform.io/app/hashicorp-team-demo/workspaces/dev/states).
 
-  - While the latest Terraform v0.12.0 is a release candidate, Terraform Cloud
-    remote state storage backend does not recognize `0.12.0-rc1` as a valid
-    version. [Download 0.12.0-beta2
-    here.](https://releases.hashicorp.com/terraform/0.12.0-beta2/) See [Github
-    issue](https://github.com/hashicorp/terraform/issues/21306).
+- Terraform v0.12.0
 
   - Initialize providers & modules.
 
-    ```bash
+    ```shell
     $ terraform init
     ```
 
@@ -37,11 +33,11 @@ provider](https://www.terraform.io/docs/providers/helm/index.html).
     Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) and run
     with the following command:
 
-    ```bash
+    ```shell
     $ minikube start --cpus 4 --memory 8192
     ```
 
-- Helm v2.13.1
+- Helm v2.14.0
 
   - [Download here.](https://github.com/helm/helm/releases)
 
@@ -88,48 +84,33 @@ Run the commands below to deploy all examples to a Kubernetes cluster.
 
 To clean up, run `terraform destroy -var-file=nginx.tfvars`.
 
-## Kubernetes Provider Notes
+## Recommended Demo Flow
 
-Below are features that are currently not covered by the Kubernetes provider:
+1. This repository shows remote state management on Terraform Cloud. No need to
+   provision buckets for remote state!
 
-- `beta` API not available. As a result, `PodDisruptionBudget` for the zookeeper
-  example is omitted.
+1. Open `main.tf` and show the `backend "remote"` configuration, which points to
+   an organization and workspace in Terraform Cloud.
 
-- No `podAffinity` or `podAntiAffinity` (Kubernetes 1.14 beta).
+1. Open [Terraform
+   Cloud](https://app.terraform.io/app/hashicorp-team-demo/workspaces) tab and
+   show the workspaces. Any of the workspaces can be used to highlight state
+   management.
 
-Observations:
+1. Go through the repository and highlight some of the key features of Terraform
+   v0.12.
 
-- If creating modules for re-use and expecting a user to pass an arbitrary
-  namespace, write a conditional to check for `default` or `kube-system` before
-  creating the namespace. The provider behaves as the Kubernetes API would for
-  namespaces.
+   - First class expressions (no more variable interpolation)
+   - Dynamic blocks (under `deployment.tf`, see the containers section)
+   - Generalized splat (under `zookeeper/configmap.tf`)
+   - For-loops in template syntax (under `zookeeper/configmap-hosts.tf`)
 
-- Use [k2tf Tool](https://github.com/sl1pm4t/k2tf) to translate Kubernetes YAML to
-  Terraform (HCL). To convert HCL to HCL2, use `terraform 0.12upgrade`.
+   For more information, show the [Terraform v0.12
+   announcement](https://www.hashicorp.com/blog/announcing-terraform-0-12),
+   which has more examples.
 
-## Kubernetes Provider Notes
+1. Ask if they would like to [sign up for Terraform
+   Cloud](https://app.terraform.io/signup).
 
-Below are features that are currently not covered by the Kubernetes provider:
-
-- `beta` API not available. As a result, `PodDisruptionBudget` for the zookeeper
-  example is omitted.
-
-- No `podAffinity` or `podAntiAffinity` (Kubernetes 1.14 beta).
-
-Other observations:
-
-- If creating modules for re-use and expecting a user to pass an arbitrary
-  namespace, write a conditional to check for `default` or `kube-system` before
-  creating the namespace. The provider behaves as the Kubernetes API would for
-  namespaces.
-
-- [k2tf Tool](https://github.com/sl1pm4t/k2tf) to translate Kubernetes YAML to
-  Terraform (HCL). To convert HCL to HCL2, use `terraform 0.12upgrade`.
-
-## Helm Provider Notes
-
-- Running a local chart does not require the `helm_repository` resource. The
-  path to the chart is referenced within the `helm_release` resource. See this
-  [closed
-  issue](https://github.com/terraform-providers/terraform-provider-helm/issues/189)
-  for additional context.
+For a more complex example highlighting the differences between v0.11 vs. v0.12
+and Terraform OSS vs. Terraform Cloud remote state, see [this example on Github](https://github.com/joatmon08/terraform0.12-cloud).
