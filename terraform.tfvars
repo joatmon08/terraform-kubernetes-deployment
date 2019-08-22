@@ -9,8 +9,3 @@ containers = [
     port  = 8080
   },
 ]
-
-enable_module = {
-  zookeeper   = false
-  helm_consul = false
-}
