@@ -11,6 +11,6 @@ containers = [
 ]
 
 enable_module = {
-  zookeeper = true
-  helm_consul = true
+  zookeeper   = false
+  helm_consul = false
 }
